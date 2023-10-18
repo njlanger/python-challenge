@@ -1,0 +1,9 @@
+Financial Analysis
+--------------------
+Total months: 86
+Total: $22,564,198
+The changes in P/L over the entire period: -706444
+The average of the change: $-8311.11
+Greatest increase in profits: Aug-16 ($1862002)
+Greatest decrease in profits: Feb-14 ($-1825558)
+Header Row is equal to: ['Date', 'Profit/Losses']

@@ -1,0 +1,74 @@
+# Created by Neil J. Langer October 2023
+
+import csv
+
+# Initialize variables
+total_months = 0
+net_total = 0
+total_change = 0
+previous_value = None
+changes = []
+dates = []
+
+
+# Open the CSV file
+with open(r'C:\Users\njlan\OneDrive\Desktop\Data_Boot_Camp\Class Projects\Module_3_Python\budget_data_PyBank.csv', newline='') as csvfile:
+    csvreader = csv.reader(csvfile, delimiter=',')
+
+    # Skip the header row and store in 'header' variiable
+    header = next(csvreader, None)
+    
+    # Iterate through each row in the file
+    for row in csvreader:
+        date = row[0]
+        profit_loss = int(row[1])
+        dates.append(date)
+        
+        if previous_value is not None:
+            change = profit_loss - previous_value
+            total_change += change
+            changes.append(change)
+        previous_value = profit_loss
+
+        # Calculate total months
+        total_months +=1  
+
+        # Calculate total P/L
+        net_total += profit_loss
+
+    # Calcualte the average of changes
+    average_change = total_change / (total_months -1)   
+
+    # Calculate the greatest increase/decrease
+    greatest_increase = max(changes)
+    greatest_decrease = min(changes)
+
+    # Find the date associated with greastest increase/decrease
+    date_greatest_increase = dates[changes.index(greatest_increase) +1]
+    date_greatest_decrease = dates[changes.index(greatest_decrease) +1]    
+
+
+# Print results in the terminal
+print("Financial Analysis")
+print("--------------------")
+print(f'Total months: {total_months}')
+print(f"Total: ${format(net_total, ',')}")
+print(f"The changes in P/L over the entire period: {total_change}")
+print(f"The average of the change: ${average_change: .2f}")
+print(f"Greatest increase in profits: {date_greatest_increase} (${greatest_increase})")
+print(f"Greatest decrease in profits: {date_greatest_decrease} (${greatest_decrease})")
+print("Header Row is equal to:", header)
+
+# Write results to a text file
+with open("financial_analysis_PyBank.txt", "w") as text_file:
+    text_file.write("Financial Analysis\n")
+    text_file.write("--------------------\n")
+    text_file.write(f'Total months: {total_months}\n')
+    text_file.write(f"Total: ${format(net_total, ',')}\n")
+    text_file.write(f"The changes in P/L over the entire period: {total_change}\n")
+    text_file.write(f"The average of the change: ${average_change: .2f}\n")
+    text_file.write(f"Greatest increase in profits: {date_greatest_increase} (${greatest_increase})\n")
+    text_file.write(f"Greatest decrease in profits: {date_greatest_decrease} (${greatest_decrease})\n")
+    text_file.write("Header Row is equal to: {}".format(header))
+
+    print("Results have been written to 'financial_analysis_PyBank.txt'.")
