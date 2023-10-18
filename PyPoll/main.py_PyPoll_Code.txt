@@ -1,0 +1,67 @@
+# Created by Neil J. Langer October 2023
+
+import csv
+
+# Initialize variables
+total_votes = 0
+candidate_votes = {}
+winner = ""
+winning_votes = 0
+
+
+
+#Open the file
+with open(r'C:\Users\njlan\OneDrive\Desktop\Data_Boot_Camp\Class Projects\Module_3_Python\election_data_PyPoll.csv', newline='') as csvfile:
+    
+    csvreader = csv.reader(csvfile, delimiter=',')   
+
+     # Skip the header row and store in 'header' variiable
+    header = next(csvreader, None)
+
+# Goes through the file and tallys the total number of votes
+    for row in csvreader:        
+        total_votes +=1
+        candidate = row[2]
+
+        # Checks if candidate has been added, if not adds
+        if candidate in candidate_votes:
+           candidate_votes[candidate] += 1
+        else:
+           candidate_votes[candidate] = 1
+
+# Prints results       
+print("Election Results")
+print(f"\nTotal number of votes cast: \n{format(total_votes, ',')}")
+print("--------------------")
+print("Candidates whom received votes:")
+
+# Calculate % of votes candidates received
+for candidate, votes in candidate_votes.items():
+    percentage = (votes/total_votes) * 100
+    print(f"\n{candidate}: ({format(votes, ',')} votes) -{percentage: .3f}% ")
+     
+     # Check for the winner
+    if votes > winning_votes:
+        winner = candidate
+        winning_votes = votes 
+
+print("--------------------")
+print(f"The WINNER is: \n\n{winner}!\n\n")
+print("Header Row is equal to:", header)
+
+# Write to a text file
+with open("Election_results_PyPoll.txt", "w") as textfile:
+    textfile.write("Election Results\n")
+    textfile.write(f"\nTotal number of votes cast: \n{format(total_votes, ',')}\n")
+    textfile.write("--------------------\n")
+    textfile.write("Candidates whom received votes:\n")
+ 
+    for candidate, votes in candidate_votes.items():
+        percentage = (votes/total_votes) * 100
+        textfile.write(f"\n{candidate}: ({format(votes, ',')} votes) -{percentage: .3f}% \n")    
+
+    textfile.write("--------------------\n")
+    textfile.write(f"The WINNER is: \n\n{winner}!\n\n")
+    textfile.write("Header Row is equal to: {}".format(header))
+
+    print("\nResults have been written to 'Election_results_PyPoll.txt'.")

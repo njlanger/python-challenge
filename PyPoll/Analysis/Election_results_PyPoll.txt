@@ -1,0 +1,18 @@
+Election Results
+
+Total number of votes cast: 
+369,711
+--------------------
+Candidates whom received votes:
+
+Charles Casper Stockham: (85,213 votes) - 23.049% 
+
+Diana DeGette: (272,892 votes) - 73.812% 
+
+Raymon Anthony Doane: (11,606 votes) - 3.139% 
+--------------------
+The WINNER is: 
+
+Diana DeGette!
+
+Header Row is equal to: ['Ballot ID', 'County', 'Candidate']
